@@ -15,7 +15,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patients = User::patients()->paginate(10);
+        $patients = User::patients()->paginate(5);
         return view('patients.index', compact('patients'));
     }
 
@@ -40,23 +40,21 @@ class PatientController extends Controller
         $rules = [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'dni' => 'digits:8',
-            'address' => 'min:5',
-            'phone' => 'min:7'
-
+            'dni' => 'nullable|digits:8',
+            'address' => 'nullable|min:5',
+            'phone' => 'nullable|min:6'
         ];
         $this->validate($request, $rules);
 
-        //asignación masiva
         User::create(
-            $request->only('name', 'email', 'dni', 'address' ,'phone')
+            $request->only('name', 'email', 'dni', 'address', 'phone')
             + [
-                'role' => 'patient', 
+                'role' => 'patient',
                 'password' => bcrypt($request->input('password'))
             ]
         );
 
-        $notification = 'El paciente se ha registrado exitosamente';
+        $notification = 'El paciente se ha registrado correctamente.';
         return redirect('/patients')->with(compact('notification'));
     }
 
@@ -71,16 +69,9 @@ class PatientController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $patient)
     {
-        return view('patients.edit', compact('patient'));
-        
+        return view('patients.edit', compact('patient'));        
     }
 
     /**
@@ -95,39 +86,32 @@ class PatientController extends Controller
         $rules = [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'dni' => 'digits:8',
-            'address' => 'min:5',
-            'phone' => 'min:7'
-
+            'dni' => 'nullable|digits:8',
+            'address' => 'nullable|min:5',
+            'phone' => 'nullable|min:6'
         ];
         $this->validate($request, $rules);
 
         $user = User::patients()->findOrFail($id);
-        
-        $data = $request->only('name', 'email', 'dni', 'address' ,'phone');
+
+        $data = $request->only('name', 'email', 'dni', 'address', 'phone');
         $password = $request->input('password');
         if ($password)
             $data['password'] = bcrypt($password);
 
         $user->fill($data);
-        $user->save(); //UPDATE
+        $user->save(); // UPDATE
 
-        $notification = 'La información del paciente se ha actualizado exitosamente';
+        $notification = 'La información del paciente se ha actualizado correctamente.';
         return redirect('/patients')->with(compact('notification'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $patient)
     {
         $patientName = $patient->name;
         $patient->delete();
 
-        $notification = "El médico $patientName se ha eliminado correctamente";
+        $notification = "El paciente $patientName se ha eliminado correctamente.";
         return redirect('/patients')->with(compact('notification'));
     }
 }

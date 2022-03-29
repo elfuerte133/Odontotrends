@@ -8,14 +8,14 @@
   <meta name="author" content="Creative Tim">
   <title>{{ config('app.name') }} | @yield('title')</title>
   <!-- Favicon -->
-  <link href="{{asset('img/brand/favicon.png')}}" rel="icon" type="image/png">
+  <link href="{{ asset('img/brand/favicon.png') }}" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="{{asset('vendor/nucleo/css/nucleo.css')}}" rel="stylesheet">
-  <link href="{{asset('vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('vendor/nucleo/css/nucleo.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <!-- Argon CSS -->
-  <link href="{{asset('css/argon.css?v=1.0.0')}}" rel="stylesheet">
+  <link href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
 </head>
 
 <body class="bg-default">
@@ -23,8 +23,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
-        <a class="" href="{{url('/')}}">
-          <img src="{{asset('img/brand/logo.png')}}" width="140px" />
+        <a class="navbar-brand" href="{{ url('/') }}">
+          <img src="{{ asset('img/brand/white.png') }}" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -35,7 +35,7 @@
             <div class="row">
               <div class="col-6 collapse-brand">
                 <a href="../index.html">
-                  <img src="{{asset('img/brand/blue.png')}}">
+                  <img src="{{ asset('img/brand/blue.png') }}">
                 </a>
               </div>
               <div class="col-6 collapse-close">
@@ -49,13 +49,13 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{route('register')}}">
+              <a class="nav-link nav-link-icon" href="{{ route('register') }}">
                 <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">Registrarse</span>
+                <span class="nav-link-inner--text">Registro</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{route('login')}}">
+              <a class="nav-link nav-link-icon" href="{{ route('login') }}">
                 <i class="ni ni-key-25"></i>
                 <span class="nav-link-inner--text">Ingresar</span>
               </a>
@@ -95,16 +95,16 @@
       <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
           <div class="copyright text-center text-xl-left text-muted">
-            &copy; 2022 <a href="/" class="font-weight-bold ml-1">{{ config('app.name') }}</a>
+            &copy; 2018 <a href="/" class="font-weight-bold ml-1">{{ config('app.name') }}</a>
           </div>
         </div>
         <div class="col-xl-6">
           <ul class="nav nav-footer justify-content-center justify-content-xl-end">
             <li class="nav-item">
-              <a href="https://www.facebook.com/Odontotrends21" class="nav-link" target="_blank">Facebook</a>
+              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Template</a>
             </li>
             <li class="nav-item">
-              <a href="https://www.instagram.com/odonto_trends/?hl=es-la" class="nav-link" target="_blank">Instagram</a>
+              <a href="#" class="nav-link" target="_blank">Acerca de</a>
             </li>
           </ul>
         </div>
@@ -113,10 +113,10 @@
   </footer>
   <!-- Argon Scripts -->
   <!-- Core -->
-  <script src="{{asset('vendor/jquery/dist/jquery.min.js')}}"></script>
-  <script src="{{asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Argon JS -->
-  <script src="{{asset('js/argon.js?v=1.0.0')}}"></script>
+  <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
 </body>
 
 </html>

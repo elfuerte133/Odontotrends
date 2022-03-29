@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Specialty;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = User::doctors()->paginate(10);
+        $doctors = User::doctors()->get();
         return view('doctors.index', compact('doctors'));
     }
 
@@ -26,7 +27,8 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('doctors.create');
+        $specialties = Specialty::all();
+        return view('doctors.create', compact('specialties'));
     }
 
     /**
@@ -37,26 +39,27 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'dni' => 'digits:8',
-            'address' => 'min:5',
-            'phone' => 'min:7'
-
+            'dni' => 'nullable|digits:8',
+            'address' => 'nullable|min:5',
+            'phone' => 'nullable|min:6'
         ];
         $this->validate($request, $rules);
 
-        //asignación masiva
-        User::create(
-            $request->only('name', 'email', 'dni', 'address' ,'phone')
+        $user = User::create(
+            $request->only('name', 'email', 'dni', 'address', 'phone')
             + [
-                'role' => 'doctor', 
+                'role' => 'doctor',
                 'password' => bcrypt($request->input('password'))
             ]
         );
 
-        $notification = 'El médico se ha registrado exitosamente';
+        $user->specialties()->attach($request->input('specialties'));
+
+        $notification = 'El médico se ha registrado correctamente.';
         return redirect('/doctors')->with(compact('notification'));
     }
 
@@ -80,7 +83,10 @@ class DoctorController extends Controller
     public function edit($id)
     {
         $doctor = User::doctors()->findOrFail($id);
-        return view('doctors.edit', compact('doctor'));
+        $specialties = Specialty::all();
+
+        $specialty_ids = $doctor->specialties()->pluck('specialties.id');
+        return view('doctors.edit', compact('doctor', 'specialties', 'specialty_ids'));
     }
 
     /**
@@ -95,39 +101,34 @@ class DoctorController extends Controller
         $rules = [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'dni' => 'digits:8',
-            'address' => 'min:5',
-            'phone' => 'min:7'
-
+            'dni' => 'nullable|digits:8',
+            'address' => 'nullable|min:5',
+            'phone' => 'nullable|min:6'
         ];
         $this->validate($request, $rules);
 
         $user = User::doctors()->findOrFail($id);
-        
-        $data = $request->only('name', 'email', 'dni', 'address' ,'phone');
+
+        $data = $request->only('name', 'email', 'dni', 'address', 'phone');
         $password = $request->input('password');
         if ($password)
             $data['password'] = bcrypt($password);
 
         $user->fill($data);
-        $user->save(); //UPDATE
+        $user->save(); // UPDATE
 
-        $notification = 'La información del médico se ha actualizado exitosamente';
+        $user->specialties()->sync($request->input('specialties'));
+
+        $notification = 'La información del médico se ha actualizado correctamente.';
         return redirect('/doctors')->with(compact('notification'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $doctor)
     {
         $doctorName = $doctor->name;
         $doctor->delete();
 
-        $notification = "El médico $doctorName se ha eliminado correctamente";
+        $notification = "El médico $doctorName se ha eliminado correctamente.";
         return redirect('/doctors')->with(compact('notification'));
     }
 }

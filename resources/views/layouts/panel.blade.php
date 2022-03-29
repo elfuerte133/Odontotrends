@@ -16,6 +16,7 @@
   <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <!-- Argon CSS -->
   <link href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
+  @yield('styles')
 </head>
 
 <body>
@@ -27,29 +28,29 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class=" pt-0" href="/">
-        <img src="{{ asset('img/brand/logo.png') }}" width="100px" alt="..."> <!--class="navbar-brand-img" -->
+      <a class="navbar-brand pt-0" href="/">
+        <img src="{{ asset('img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
         <li class="nav-item dropdown">
           <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="ni ni-bell-55"></i>
+            <i class="ni ni-bell-55"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <div class="media align-items-center">
+            <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="{{ asset('img/theme/avatar.png') }}">
+                <img alt="Image placeholder" src="{{ asset('img/theme/avatar.png') }}">
               </span>
-          </div>
+            </div>
           </a>
           @include('includes.panel.dropdown_menu')
         </li>
@@ -98,17 +99,17 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-          <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
-              <span class="avatar avatar-sm rounded-circle">
+                <span class="avatar avatar-sm rounded-circle">
                   <img alt="Image placeholder" src="{{ asset('img/theme/avatar.png') }}">
-              </span>
-              <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm font-weight-bold">{{ auth()->user()->name }}</span>
+                </div>
               </div>
-              </div>
-          </a>
-          @include('includes.panel.dropdown_menu')
+            </a>
+            @include('includes.panel.dropdown_menu')
           </li>
         </ul>
       </div>
@@ -119,7 +120,6 @@
     <!-- Page content -->
     <div class="container-fluid mt--7">
       @yield('content')
-      <!-- Footer -->
       @include('includes.panel.footer')
     </div>
   </div>
@@ -130,8 +130,8 @@
   <!-- Optional JS -->
   <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
   <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
+  @yield('scripts')
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
 </body>
-
 </html>
