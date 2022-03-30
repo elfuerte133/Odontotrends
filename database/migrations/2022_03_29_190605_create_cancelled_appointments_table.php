@@ -14,7 +14,7 @@ class CreateCancelledAppointmentsTable extends Migration
     public function up()
     {
         Schema::create('cancelled_appointments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments ('id');
 
             $table->unsignedInteger('appointment_id'); 
             $table->foreign('appointment_id')->references('id')->on('appointments');

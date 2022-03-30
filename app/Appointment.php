@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class Appointment extends Model
