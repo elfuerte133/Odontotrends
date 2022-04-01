@@ -14,11 +14,11 @@ class CreateWorkDaysTable extends Migration
     public function up()
     {
         Schema::create('work_days', function (Blueprint $table) {
-            $table->Increments('id');
+            $table->increments ('id');
 
             $table->unsignedSmallInteger('day');
             $table->boolean('active');
-
+            
             $table->time('morning_start');
             $table->time('morning_end');
 

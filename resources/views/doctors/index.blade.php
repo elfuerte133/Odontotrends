@@ -2,25 +2,27 @@
 
 @section('content')
   <div class="card shadow">
-  <div class="card-header border-0">
+    <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
           <h3 class="mb-0">Médicos</h3>
         </div>
         <div class="col text-right">
-          <a href="{{ url('doctors/create') }}" class="btn btn-sm btn-success">Nueva médicos</a>
+          <a href="{{ url('doctors/create') }}" class="btn btn-sm btn-success">
+            Nuevo médico
+          </a>
         </div>
       </div>
     </div>
     <div class="card-body">
-      @if(session('notification'))
+      @if (session('notification'))
       <div class="alert alert-success" role="alert">
         {{ session('notification') }}
-     </div>
-     @endif
-    </div>
-  <div class="table-responsive">
-      <table class="table align-items-center table-flush">
+      </div>
+      @endif
+    </div>    
+    <div class="table-responsive">
+       <table class="table align-items-center table-flush">
         <thead class="thead-light">
           <tr>
             <th scope="col">Nombre</th>
@@ -36,10 +38,10 @@
               {{ $doctor->name }}
             </th>
             <td>
-            {{ $doctor->email }}
+              {{ $doctor->email }}
             </td>
             <td>
-            {{ $doctor->dni }}
+              {{ $doctor->dni }}
             </td>
             <td>
               <form action="{{ url('/doctors/'.$doctor->id) }}" method="POST">
@@ -47,17 +49,13 @@
                 @method('DELETE')
 
                 <a href="{{ url('/doctors/'.$doctor->id.'/edit') }}" class="btn btn-sm btn-primary">Editar</a>
-                <button onclick="return confirm('¿Seguro que desea eliminar a este médico?');" class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+                <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
               </form>
             </td>
           </tr>
           @endforeach
         </tbody>
       </table>
-    </div>
-    </div>
-    <div class="card-body">
-    {{ $doctors->links() }}
     </div>
   </div>
 @endsection
